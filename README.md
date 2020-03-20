@@ -1,19 +1,18 @@
----
-page_type: sample
-description: "This is a minimal sample app that demonstrates how to run a Python Flask application on Azure App Service on Linux."
-languages:
-- python
-products:
-- azure
-- azure-app-service
----
+# sliding puzzle backend
 
-# Python Flask sample for Azure App Service (Linux)
+this is the sliding puzzle by Gad Zuaretz and Amit Ronen backend.
 
-This is a minimal sample app that demonstrates how to run a Python Flask application on Azure App Service on Linux.
+## files
+1. application.py - main API application interface file
+2. analytics.py  - helper functions to analyze the data
+3. utils.py - utilities functions
+4. db.json - json database that stores all records
 
-For more information, please see the [Python on App Service quickstart](https://docs.microsoft.com/azure/app-service/containers/quickstart-python).
-
-## Contributing
-
-This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
+## API
+1. `addRecord`, POST - add a new record to the database
+2. `getRecords` (level=e/m/h), GET - get records by level
+3. `countRecords` (level=e/m/h), GET - get the count of records by level
+4. `getRecords` (level=e/m/h), GET - get records by level
+5. `countAllRecords` , GET - get the count of all records
+2. `averageTime` (level=e/m/h), GET - get average time by level
+3. `topPlayers`, GET - get number of games played for each user

@@ -2,10 +2,8 @@ import json
 from flask import Flask
 from flask import request
 from flask_cors import CORS
-from utils import *
 from analytics import * 
 app = Flask(__name__)
-db = "db.json"
 CORS(app)
 
 def errRes():
@@ -36,7 +34,7 @@ def addRecord():
 
 @app.route("/getRecords", methods=['GET'])
 def getRecord():
-    log("record add request")
+    log("record get request")
     records = read_from_json_file(db)    
     if records == "err":
         return errRes()
@@ -59,9 +57,9 @@ def countRecords():
     level = request.args['level']
     count = countRecordsByLevel(records, level)
     return app.response_class(
-        response=count,
+        response=str(count),
         status=200,
-        mimetype='text/html'
+        mimetype='application/json'
     )
 
 @app.route("/countAllRecords", methods=['GET'])
@@ -73,9 +71,9 @@ def countAllRecord():
 
     count = countTotalRecords(records)
     return app.response_class(
-        response=count,
+        response=str(count),
         status=200,
-        mimetype='text/html'
+        mimetype='application/json'
     )
 
 @app.route("/averageTime", methods=['GET'])
@@ -88,9 +86,23 @@ def getRecordsAvg():
     level = request.args['level']
     avg = averageTimeByLevel(records, level)
     return app.response_class(
-        response=avg,
+        response=json.dumps(str(avg)),
         status=200,
-        mimetype='text/html'
+        mimetype='application/json'
+    )
+
+@app.route("/topPlayers", methods=['GET'])
+def gettopPlayers():
+    log("top players request")
+    records = read_from_json_file(db)
+    if records == "err":
+        response = errRes()
+   
+    dic = topPlayers(records)
+    return app.response_class(
+        response=json.dumps(dic),
+        status=200,
+        mimetype='application/json'
     )
 
 
